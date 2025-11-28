@@ -104,7 +104,9 @@ function parseMarkdownPost(text) {
     });
     
     // Convert markdown to HTML using marked.js
-    const content = marked.parse(markdown);
+    const content = typeof marked !== 'undefined' && marked.parse 
+        ? marked.parse(markdown) 
+        : markdown; // Fallback if marked not loaded
     
     return {
         title: metadata.title || 'Untitled',
