@@ -20,24 +20,34 @@ async function loadBlogPosts() {
     const postsContainer = document.getElementById('blog-posts');
     
     try {
+        console.log('Loading posts:', blogPosts);
+        
         // Load all posts
         const posts = await Promise.all(
             blogPosts.map(filename => loadPost(filename))
         );
         
+        console.log('Loaded posts:', posts);
+        
+        // Filter out null posts
+        const validPosts = posts.filter(post => post !== null);
+        
+        if (validPosts.length === 0) {
+            postsContainer.innerHTML = '<p>No blog posts available yet.</p>';
+            return;
+        }
+        
         // Sort by date (newest first)
-        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        validPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
         
         // Display posts
-        posts.forEach(post => {
-            if (post) {
-                postsContainer.appendChild(createPostElement(post));
-            }
+        validPosts.forEach(post => {
+            postsContainer.appendChild(createPostElement(post));
         });
         
     } catch (error) {
         console.error('Error loading blog posts:', error);
-        postsContainer.innerHTML = '<p>Error loading blog posts. Please try again later.</p>';
+        postsContainer.innerHTML = '<p>Error loading blog posts: ' + error.message + '</p>';
     }
 }
 
