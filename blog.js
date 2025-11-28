@@ -10,6 +10,7 @@ const blogPosts = [
     // 'docker-intro.json',
     // 'javascript-closures.json',
     // 'rest-api-best-practices.json'
+    'type_states.json'
 ];
 
 /**
