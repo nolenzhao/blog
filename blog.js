@@ -8,9 +8,9 @@ const BLOG_CONFIG = {
 // List of all blog posts (add new posts here)
 // Supports both .json and .md files
 const blogPosts = [
-    'react-hooks-guide.md',
-    'example-post.md',
-    'type_states.json'
+    // 'react-hooks-guide.md',
+    // 'example-post.md',
+    'haskell_type_states.md'
 ];
 
 /**
