@@ -6,6 +6,7 @@ const BLOG_CONFIG = {
 };
 
 // List of all blog posts (add new posts here)
+// Supports both .json and .md files
 const blogPosts = [
     // 'docker-intro.json',
     // 'javascript-closures.json',
@@ -42,7 +43,7 @@ async function loadBlogPosts() {
 }
 
 /**
- * Load a single post from JSON file
+ * Load a single post from JSON or Markdown file
  */
 async function loadPost(filename) {
     try {
@@ -50,11 +51,69 @@ async function loadPost(filename) {
         if (!response.ok) {
             throw new Error(`Failed to load ${filename}`);
         }
-        return await response.json();
+        
+        // Check if it's a markdown file
+        if (filename.endsWith('.md')) {
+            const text = await response.text();
+            return parseMarkdownPost(text);
+        } else {
+            return await response.json();
+        }
     } catch (error) {
         console.error(`Error loading post ${filename}:`, error);
         return null;
     }
+}
+
+/**
+ * Parse a markdown file with frontmatter
+ */
+function parseMarkdownPost(text) {
+    // Extract frontmatter (YAML between --- markers)
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+    const match = text.match(frontmatterRegex);
+    
+    if (!match) {
+        console.error('Invalid markdown format: missing frontmatter');
+        return null;
+    }
+    
+    const frontmatter = match[1];
+    const markdown = match[2];
+    
+    // Parse frontmatter (simple key: value parser)
+    const metadata = {};
+    frontmatter.split('\n').forEach(line => {
+        const colonIndex = line.indexOf(':');
+        if (colonIndex > 0) {
+            const key = line.substring(0, colonIndex).trim();
+            let value = line.substring(colonIndex + 1).trim();
+            
+            // Remove quotes if present
+            if ((value.startsWith('"') && value.endsWith('"')) || 
+                (value.startsWith("'") && value.endsWith("'"))) {
+                value = value.slice(1, -1);
+            }
+            
+            // Parse arrays (tags)
+            if (value.startsWith('[') && value.endsWith(']')) {
+                value = value.slice(1, -1).split(',').map(s => s.trim().replace(/['"]/g, ''));
+            }
+            
+            metadata[key] = value;
+        }
+    });
+    
+    // Convert markdown to HTML using marked.js
+    const content = marked.parse(markdown);
+    
+    return {
+        title: metadata.title || 'Untitled',
+        date: metadata.date || new Date().toISOString().split('T')[0],
+        author: metadata.author || 'Anonymous',
+        tags: metadata.tags || [],
+        content: content
+    };
 }
 
 /**
