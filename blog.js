@@ -7,9 +7,9 @@ const BLOG_CONFIG = {
 
 // List of all blog posts (add new posts here)
 const blogPosts = [
-    'docker-intro.json',
-    'javascript-closures.json',
-    'rest-api-best-practices.json'
+    // 'docker-intro.json',
+    // 'javascript-closures.json',
+    // 'rest-api-best-practices.json'
 ];
 
 /**

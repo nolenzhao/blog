@@ -4,16 +4,22 @@ A simple, modular blog website for technical content. No build tools required - 
 
 ## 🚀 Getting Started
 
-1. Open `index.html` in your browser, or serve it with any static server:
-   ```bash
-   # Using Python 3
-   python3 -m http.server 8000
-   
-   # Using Node.js (install http-server globally first)
-   npx http-server
-   ```
+Your blog is hosted on GitHub Pages! 
 
-2. Visit `http://localhost:8000` in your browser
+**Live URL:** `https://<your-github-username>.github.io/blog/`
+
+### Testing Locally (Optional)
+
+To preview changes before pushing:
+```bash
+# Using Python 3
+python3 -m http.server 8000
+
+# Using Node.js
+npx http-server
+```
+
+Then visit `http://localhost:8000` in your browser
 
 ## ✍️ Adding New Blog Posts
 
@@ -42,7 +48,14 @@ Adding a new post is super easy:
    ];
    ```
 
-4. **Refresh your browser** - that's it!
+4. **Commit and push to GitHub:**
+   ```bash
+   git add .
+   git commit -m "Add new blog post"
+   git push
+   ```
+
+5. **Wait ~1 minute** for GitHub Pages to rebuild - your post is live!
 
 ## 📝 Writing Content
 
@@ -161,14 +174,53 @@ Add your own CSS rules at the bottom of `styles.css` - they'll override the defa
 
 ## 🚢 Deployment
 
-Deploy to any static hosting service:
+Your blog is already deployed on **GitHub Pages**! Every time you push changes, your site updates automatically.
 
-- **GitHub Pages:** Push to a repo and enable Pages
-- **Netlify:** Drag and drop your folder
-- **Vercel:** Connect your git repository
-- **Any web host:** Upload via FTP/SFTP
+### Initial Setup (Already Done!)
 
-No build process needed!
+The repository is set up. Now you just need to:
+
+1. **Create the GitHub repository:**
+   - Go to [github.com/new](https://github.com/new)
+   - Name it `blog`
+   - Make it public
+   - Don't initialize with README (we already have files)
+
+2. **Push your code:**
+   ```bash
+   git remote add origin https://github.com/<your-username>/blog.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+3. **Enable GitHub Pages:**
+   - Go to your repository on GitHub
+   - Click **Settings** → **Pages**
+   - Under "Source", select **main** branch
+   - Click **Save**
+
+4. **Access your blog:**
+   - Wait 1-2 minutes for deployment
+   - Visit `https://<your-username>.github.io/blog/`
+
+### Publishing New Posts
+
+1. Create your post JSON file in `posts/`
+2. Update the `blogPosts` array in `blog.js`
+3. Commit and push:
+   ```bash
+   git add .
+   git commit -m "Add new post"
+   git push
+   ```
+4. Your changes go live automatically!
+
+### Custom Domain (Optional)
+
+Want a custom domain like `blog.yourdomain.com`?
+1. Add a `CNAME` file with your domain
+2. Configure DNS settings with your domain provider
+3. See [GitHub Pages custom domain docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 
 ## 📄 License
 
