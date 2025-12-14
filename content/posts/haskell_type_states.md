@@ -114,8 +114,9 @@ Let's take a look back at the earlier example. This time, we will enforce a cons
 ```c++
 template <typename T>
 concept Sittable = requires (T s){
-    s.sit();
-}
+    { s.sit() } -> std::same_as<void>;
+};
+   
 
 template <typename T>
 void relax(T s) requires Sittable<T> { s.sit() /* some relaxing logic */ }
@@ -125,7 +126,7 @@ relax(RockingChair{ /* RockingChair fields */ });
 relax(Horse{ /* Table fields */ });
 ```
 
-Now, we have declared the concept of an object being `Sittable`[^2]. Statements within the curly braces must be well-formed. In this example, the check is if `s.sit()` will compile correctly. The `relax` method now acts as a generic function which can be called to check for any object which there exists a `sit` method. Duplicate *relaxing logic* does not need to be written as in the case which only used templates.
+Now, we have declared the concept of an object being `Sittable`[^2]. Statements within the curly braces must be well-formed. In this example, the check is if `s.sit()` will compile correctly and the `sit` method return type is `void`. All lines within the `requires` clause must compile and be satisfied. The `relax` method now acts as a generic function which can be called to check for any object which there exists a `sit` method. Duplicate *relaxing logic* does not need to be written as in the case which only used templates.
 
 
 ### Conclusion
