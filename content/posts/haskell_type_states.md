@@ -130,7 +130,7 @@ Now, we have declared the concept of an object being `Sittable`[^1]. Statements 
 
 
 ### Conclusion
-Haskell type classes have influenced OOP languages to perform type-checking in a more natural way, which doesn't need to restrain itself to the class hierarchy traditional to these languages. Consider using the type class equivalent in the language of your choice next time  
+Haskell type classes have influenced OOP languages to perform type-checking in a more natural way, which doesn't need to restrain itself to the class hierarchy traditional to these languages. Consider using the type class equivalent in the language of your choice for generic functions. A classic example of this is `sort` (`concept Comparable`). This decouples the logic (method) from the type (class) and is an elegant solution.
 
 
 [^1]: Some alternative ways of declaring the constraint. These are identical but are some nice syntactic sugar.

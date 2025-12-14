@@ -22,11 +22,15 @@ theme = 'PaperMod'
 
   [params.homeInfoParams]
     Title = "Nolen Zhao"
-    Content = "Things I find interesting"
+    Content = "Topics of Interest"
 
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/nolenzhao"
+
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://linkedin.com/in/nolenzhao"
 
 [menu]
   [[menu.main]]
