@@ -90,7 +90,7 @@ catch(obj2.E){
 These are somewhat concurrency exclusive. May not have immediately practicality in sequential code.
 
 ### Coroutines
-Coroutines are in essence, a stack-full class. It allows for suspension and resumption of computation within methods. The stack-full nature allows preservation of the results mid-computation. If readers are familiar with generators in Python or other languages, the concept is similar. However, coroutines in uC++ are more powerful, as they allow coroutines to suspend and call other coroutines, whereas generators in Python can only suspend back to main (they are stackless and use main's stack).
+Coroutines are in essence, a stack-full class. It allows for suspension and resumption of computation within methods. The stack-full nature allows preservation of the results mid-computation. If readers are familiar with generators in Python or other languages, the concept is similar. However, coroutines in uC++ are more powerful, as they allow coroutines to suspend and call other coroutines, whereas generators[^2] in Python can only suspend back to main (they are stackless and use main's stack). 
 
 
 [^1]: The `with` statement can perform the same cleanup here. The statement following `with` must return a context manager object (must define behaviour for entrance and exit). It should be noted that this version releases the lock **before** the `except` statement is run, as the lock is released when exiting the `with` block. The snippet with the `finally` clause releases the lock **after** the `except` statement. If the error logging is not a critical section, unlocking earlier can have better performance.
@@ -104,3 +104,5 @@ Coroutines are in essence, a stack-full class. It allows for suspension and resu
             # Some error logging
             raise 
     ```
+
+[^2]: Talk about Generators here and yield
