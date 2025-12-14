@@ -132,7 +132,7 @@ Now, we have declared the concept of an object being `Sittable`[^2]. Statements 
 Haskell type classes have influenced OOP languages to perform type-checking in a more natural way, which doesn't need to restrain itself to the class hierarchy traditional to these languages. Consider using the type class equivalent in the language of your choice for generic functions. A classic example of this is `sort` (constraint to `concept Comparable`). This decouples the logic (method) from the type (class) and is an elegant way to write generic functions with ad-hoc polymorphism.
 
 
-[^1]: The diamond problem arises from cases of multiple inheritance. It's characterized by two different classes each inheriting from a common class. For example `B` inherits from `A` and `C` also inherits from `A`. When class `D` tries to inherit from `B` and `C` which instance of `A` is used in `D`? [Virtual inheritance](https://www.learncpp.com/cpp-tutorial/virtual-base-classes/) is used to disambiguate.
+[^1]: The diamond problem arises from cases of multiple inheritance. It's characterized by two different classes each inheriting from a common class. For example, `B` inherits from `A`, and `C` also inherits from `A`. When class `D` tries to inherit from `B` and `C`, which instance of `A` is used in `D`? [Virtual inheritance](https://www.learncpp.com/cpp-tutorial/virtual-base-classes/) is used to disambiguate.
 
     ```c++
     class A { public: x};
