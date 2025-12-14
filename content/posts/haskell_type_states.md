@@ -137,7 +137,7 @@ Haskell type classes have influenced OOP languages to perform type-checking in a
 [^1]: The diamond problem arises from cases of multiple inheritance. It's characterized by two different classes each inheriting from a common class. For example, `B` inherits from `A`, and `C` also inherits from `A`. When class `D` tries to inherit from `B` and `C`, which instance of `A` is used in `D`? [Virtual inheritance](https://www.learncpp.com/cpp-tutorial/virtual-base-classes/) is used to disambiguate.
 
     ```c++
-    class A { public: x};
+    class A { public: int x};
     class B : public A {};
     class C : public A {};
     class D : public B, public C {};
