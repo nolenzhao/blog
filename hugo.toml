@@ -30,7 +30,7 @@ theme = 'PaperMod'
 
   [[params.socialIcons]]
     name = "linkedin"
-    url = https://www.linkedin.com/in/nolen-zhao/
+    url = "https://www.linkedin.com/in/nolen-zhao/"
 
 [menu]
   [[menu.main]]
