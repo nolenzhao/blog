@@ -115,6 +115,7 @@ Let's take a look back at the earlier example. This time, we will enforce a cons
 template <typename T>
 concept Sittable = requires (T s){
     { s.sit() } -> std::same_as<void>;
+    // Other requirements
 };
    
 
