@@ -40,6 +40,12 @@ theme = 'PaperMod'
     weight = 10
   
   [[menu.main]]
+    identifier = "gallery"
+    name = "Gallery"
+    url = "/gallery/"
+    weight = 15
+  
+  [[menu.main]]
     identifier = "tags"
     name = "Tags"
     url = "/tags/"
@@ -49,6 +55,9 @@ theme = 'PaperMod'
   home = ["HTML", "RSS", "JSON"]
 
 [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
   [markup.highlight]
     anchorLineNos = false
     codeFences = true
