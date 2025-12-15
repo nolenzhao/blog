@@ -13,7 +13,7 @@ This semester I took the class [CS343: Concurrent and Parallel Programming](http
 Below is a list of features which I believe have immediately practicality in C++, even for sequential programs. 
 
 ### Finally Clause
-This is already a feature in Java, Python, C#, etc. The `finally` clause executes regardless of the control flow of the `try/except` block. Regardless of the outcome of the write, we should unconditionally release the mutex lock to prevent deadlock. The `finally` block is ran immediately following the statement to `return/raise` in this example. Python also has the context manager[^1] with similar semantics.
+This is already a feature in Java, Python, C#, etc. The `finally` clause executes regardless of the control flow of the `try/except` block. In the example below, regardless of the outcome of the write, we should unconditionally release the mutex lock before returning to prevent deadlock. The `finally` block is ran immediately following the statement to `return/raise` in this example. Python also has the context manager[^1] with similar semantics.
 
 ```python
 def write_shared(path: str) -> int:
@@ -92,6 +92,32 @@ These are somewhat concurrency exclusive. May not have immediately practicality 
 ### Coroutines
 Coroutines are in essence, a stack-full class. It allows for suspension and resumption of computation within methods. The stack-full nature allows preservation of the results mid-computation. If readers are familiar with generators in Python or other languages, the concept is similar. However, coroutines in uC++ are more powerful, as they allow coroutines to suspend and call other coroutines, whereas generators[^2] in Python can only suspend back to main (they are stackless and use main's stack). 
 
+Each `_Coroutine` defines the `main` function which it executes. The call to `suspend()` pauses the execution and control/execution resumes at the last `_Coroutine` which resumed it. Calls to `resume()` have different semantics, and instead control goes to the `this` object. 
+
+Below is a Fibonacci sequence. The state at the beginning needs to be remembered, to produce the initial two value of 0 and 1. Then, the Fibonacci pattern is continued indefinitely. This removes the need for state variables if it was a regular function call.
+```c++
+_Coroutine fibonacci(){
+public: 
+    int prev1 = 0
+    int prev2 = 1;;
+    int _res;
+
+    void main(){
+        _res = prev1;
+        suspend();            
+        _res = prev2;
+        while(true){
+            suspend();
+            _res = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = _res;
+        }
+    }
+}
+```
+
+## Conclusion
+This course gave me a much deeper understanding of the fundamentals of concurrency/parallelism, diving into the implementation of locks, and the issues that come with them. It also covers high level constructs, as you appreciate the need for them when dealing with convoluted critical section access which would be difficult with solely locking primitives. Professor Peter Buhr is one of the creators of uC++ and his knowledge of concurrency is apparent when teaching, interleaving analogies, and often answering students questions on the very next slide. I would highly recommend this course if taught under him.
 
 [^1]: The `with` statement can perform the same cleanup here. The statement following `with` must return a context manager object (must define behaviour for entrance and exit). It should be noted that this version releases the lock **before** the `except` statement is run, as the lock is released when exiting the `with` block. The snippet with the `finally` clause releases the lock **after** the `except` statement. If the error logging is not a critical section, unlocking earlier can have better performance.
     ```python
@@ -105,4 +131,16 @@ Coroutines are in essence, a stack-full class. It allows for suspension and resu
             raise 
     ```
 
-[^2]: Talk about Generators here and yield
+[^2]: Generators in Python work a bit differently. The concept is the same, where execution continues, not from the beginning of the function, but where it was last suspended. However, this returns an `Iterator` type.
+```python
+def fibonacci() -> Iterator[int]: 
+    prev1 = 0
+    prev2 = 1 
+    yield prev1
+    yield prev2
+    while True:
+        res = prev1 + prev2
+        yield res
+        prev1 = prev2
+        prev2 = res
+```
