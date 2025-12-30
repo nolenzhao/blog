@@ -1,4 +1,4 @@
-baseURL = 'https://nolenzhao.github.io/blog/'
+baseURL = 'https://nolenzhao.github.io/'
 languageCode = 'en-us'
 title = 'Nolen Zhao'
 theme = 'PaperMod'
