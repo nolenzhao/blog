@@ -306,6 +306,10 @@ public:
 }
 ```
 
+As a reuslt of these changes, FIFO odering has been preserved given that waiting tasks on the blocked list enter are woken one at a time, and enter the critical section, and calling tasks cannot join the blocked list while tasks are being unblocked. 
+
+
+
 ## Conclusion
 This course gave me a much deeper understanding of the fundamentals of concurrency/parallelism, diving into the implementation of locks, and the issues that come with them. It also covers high level constructs, as you appreciate the need for them when dealing with convoluted critical section access which would be difficult with solely locking primitives. Professor Peter Buhr is one of the creators of uC++ and his knowledge of concurrency is apparent when teaching, interleaving analogies, and often answering students questions on the very next slide. I would highly recommend this course if taught under him.
 
