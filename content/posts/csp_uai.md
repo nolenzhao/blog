@@ -18,7 +18,7 @@ pumps blood (hence systolic). For example, [Untether AI's architecture](https://
 
 The formalization of this concept by Hoare was interesting to me, and he shows how input/output in actually a primitive in concurrent programs. The paper uses it to construct bounded buffers, monitors, and other objects. Channels in Golang use this message passing as their basis. 
 
-I'm curious what concepts from message passing will apply to my upcoming work at Tenstorrent on their fabric interconnect, given it's possible systolic similarities. Perhaps some of Hoare's other works contains deadlock prevention in message passing and other techniques for rendezvous which are asynchronous (as compared to the synchronous handoff form the paper). I may possibly update this with messaging's implications in distributed systems.
+I'm curious what concepts from message passing will apply to my upcoming work at Tenstorrent on their fabric interconnect, given it's possible systolic similarities. Perhaps some of Hoare's other works contains deadlock prevention in message passing and other techniques for rendezvous which are asynchronous (as compared to the synchronous handoff from the paper). I may possibly update this with messaging's implications in distributed systems.
 
 
 [^1]: 
